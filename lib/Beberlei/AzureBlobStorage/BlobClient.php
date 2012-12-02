@@ -639,7 +639,7 @@ class BlobClient
 			throw new BlobException('Local file name is not specified.');
 		}
 		if (!file_exists($localFileName)) {
-			throw new BlobException('Local file not found.');
+			throw new BlobException('Local file '.$localFileName.' not found.');
 		}
 		if ($containerName === '$root' && strpos($blobName, '/') !== false) {
 			throw new BlobException('Blobs stored in the root container can not have a name containing a forward slash (/).');
@@ -1431,7 +1431,8 @@ class BlobClient
 				$response->getHeader('x-ms-blob-type'),
 				$response->getHeader('x-ms-lease-status'),
 				false,
-				$metadata
+				$metadata,
+				$response->getHeader('content-md5')
 			);
 		} else {
 			throw new BlobException($this->getErrorMessage($response, 'Resource could not be accessed.'));

@@ -35,6 +35,7 @@ namespace Beberlei\AzureBlobStorage;
  * @property string  $LeaseStatus     The blob lease status.
  * @property boolean $IsPrefix        Is it a blob or a directory prefix?
  * @property array   $Metadata        Key/value pairs of meta data
+ * @property string  $content_md5     base64 encoded 128 bits of MD5 hash of the contnet
  */
 class BlobInstance
 {
@@ -58,8 +59,9 @@ class BlobInstance
      * @param string  $leaseStatus     Lease status
      * @param boolean $isPrefix        Is Prefix?
      * @param array   $metadata        Key/value pairs of meta data
+     * @param strring $content_md5     base64 encoded 128 bits of MD5 hash of the contnet
      */
-    public function __construct($containerName, $name, $snapshotId, $etag, $lastModified, $url = '', $size = 0, $contentType = '', $contentEncoding = '', $contentLanguage = '', $cacheControl = '', $blobType = '', $leaseStatus = '', $isPrefix = false, $metadata = array()) 
+    public function __construct($containerName, $name, $snapshotId, $etag, $lastModified, $url = '', $size = 0, $contentType = '', $contentEncoding = '', $contentLanguage = '', $cacheControl = '', $blobType = '', $leaseStatus = '', $isPrefix = false, $metadata = array(), $content_md5 = null) 
     {
         $this->data = array(
             'container'        => $containerName,
@@ -76,7 +78,8 @@ class BlobInstance
             'blobtype'         => $blobType,
             'leasestatus'      => $leaseStatus,
             'isprefix'         => $isPrefix,
-            'metadata'         => $metadata
+            'metadata'         => $metadata,
+            'content_md5'      => $content_md5,
         );
     }
 
